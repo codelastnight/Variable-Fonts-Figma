@@ -4,7 +4,7 @@
 interface FontSaveData {
     Id: string // unique id that the app can look for
     Name: string // name of string
-    FontBuffer: string | ArrayBuffer //font buffer data as a string
+    FontBuffer: string | ArrayBuffer | File //font buffer data as a string
 
 }
 
@@ -20,12 +20,20 @@ interface VariableClientStorage {
  *  */ 
 interface pluginMessage {
     type: string
-    data: string
+    data?: string
+    fontData?: FontSaveData
+    fontListData?: VariableClientStorage
+    removeID?: string
 }
 
 /**
  * object storing font settings within each font object.
  */
 interface FontNodeData {
+    Name: string
+    settings: FontSetting
+}
 
+interface FontSetting {
+    
 }

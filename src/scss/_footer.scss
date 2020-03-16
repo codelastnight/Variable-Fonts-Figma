@@ -1,0 +1,6 @@
+@use 'variables' as v;
+
+footer {
+    @include v.border("-top");
+    padding: v.$padding-lr;
+}

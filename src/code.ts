@@ -10,7 +10,7 @@ const clientId = "Variable-Fonts-Figma"
 
 
 // This shows the HTML page in "ui.html".
-figma.showUI(__html__,{width: 390, height: 260});
+figma.showUI(__html__,{width: 420, height: 270});
 
 
 // Calls to "parent.postMessage" from within the HTML page will trigger this
@@ -29,21 +29,31 @@ figma.ui.on("message",async (msg: pluginMessage) => {
     
     // save font data sent from ui in to clientstorage
     case 'font-loaded': {
-      const clientBuffer: string = await figma.clientStorage.getAsync(clientId)
-      const clientData: VariableClientStorage =  JSON.parse(clientBuffer);
-      if (clientData  == undefined) clientData.data = []
+     let clientBuffer: VariableClientStorage = await figma.clientStorage.getAsync(clientId)
+      if (clientBuffer  == undefined) clientBuffer = { data: []}
+      //console.log(msg.fontData)
       
-      clientData.data.push(JSON.parse(msg.data)) 
-  
-      await figma.clientStorage.setAsync(clientId, JSON.stringify(clientData)) 
-      figma.ui.postMessage({type: "font-list", data: clientBuffer} as pluginMessage)
+      clientBuffer.data.push(msg.fontData) 
+      
+      await figma.clientStorage.setAsync(clientId, clientBuffer) 
+      figma.ui.postMessage({type: "font-list", fontListData: clientBuffer} as pluginMessage)
       break;
 
     }
+
     // get font data from clientstorage 
     case 'app-init': {
-      const clientBuffer: string = await figma.clientStorage.getAsync(clientId)
-      figma.ui.postMessage({type: "font-list", data: clientBuffer} as pluginMessage)
+      let clientBuffer: VariableClientStorage = await figma.clientStorage.getAsync(clientId)
+      if (clientBuffer != undefined) figma.ui.postMessage({type: "font-list", fontListData: clientBuffer} as pluginMessage)
+      break;
+    }  
+    
+    // remove font from data
+    case 'font-remove': {
+      let clientBuffer: VariableClientStorage = await figma.clientStorage.getAsync(clientId)
+      if (clientBuffer != undefined) clientBuffer.data = clientBuffer.data.filter(i => i.Id != msg.removeID)
+      await figma.clientStorage.setAsync(clientId, clientBuffer) 
+      figma.ui.postMessage({type: "font-list", fontListData: clientBuffer} as pluginMessage)
       break;
     }  
     default:

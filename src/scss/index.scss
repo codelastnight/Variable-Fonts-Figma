@@ -1,3 +1,5 @@
-@use 'figma-ds';
+@import 'figma-ds/figma-plugin-ds.scss';
 
-@use 'custom';
+@import 'custom';
+@import 'FontLoader';
+@import 'footer';

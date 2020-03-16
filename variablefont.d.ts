@@ -19,7 +19,7 @@ interface IFontInfo {
     unitsPerEm: number
 }
 
-declare var opentype: {
-    load: (fontUrl: string, callback: (err: any, font: IFontInfo) => void) => void,
-    parse: (fontBuffer: ArrayBuffer) => IFontInfo
-}
+// declare var opentype: {
+//     load: (fontUrl: string, callback: (err: any, font: IFontInfo) => void) => void,
+//     parse: (fontBuffer: ArrayBuffer) => IFontInfo
+// }

@@ -1,20 +1,25 @@
+//@use './figma-ds/base/mixins';
+
+
+
 main {
     display: grid;
-    grid-template-columns: [c1] 45% [c2] 55% [c3];
-    grid-template-rows: [r1] auto [r2] 40px [r3];
-
+    grid-template-columns: [c1] 40% [c2] auto [c3];
+    grid-template-rows: [r1] auto [r2] 30px [r3];
+    height: 100%;
+    width: 100%;
     .font-loader {
         grid-column: c1 / c2;
-        grid-row: r1 /r2;
+        grid-row: r1 /r3;
     }
     
     .font-editor {
         grid-column: c2 / c3;
-        grid-row: r1 /r2;
+        grid-row: r1 /r3;
     }
     
     footer {
-        grid-column: c1 / c3;
+        grid-column: c2 / c3;
         grid-row: r2 /r3;
 
         display: flex;
@@ -22,4 +27,50 @@ main {
         align-items: center;
     }
 }
+body {
+    margin: 0;
+}
 
+p {
+    margin: 0;
+}
+
+
+// scrollbar
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+   //position: fixed;
+  }
+  
+  /* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+  
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(#000, 0.3);
+    border: 2px solid white;
+    //margin: 2px;
+    border-radius: 50%;
+    padding: 2px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+  }
