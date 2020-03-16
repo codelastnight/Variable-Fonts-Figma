@@ -1,4 +1,4 @@
-// Figma Plugin API version 1, update 12
+// Figma Plugin API version 1, update 14
 
 declare global {
 // Global variable with Figma's plugin API.
@@ -453,6 +453,7 @@ interface BaseNodeMixin {
   // be a name related to your plugin. Other plugins will be able to read this data.
   getSharedPluginData(namespace: string, key: string): string
   setSharedPluginData(namespace: string, key: string, value: string): void
+  setRelaunchData(data: { [command: string]: /* description */ string }): void
 }
 
 interface SceneNodeMixin {
@@ -471,13 +472,13 @@ interface ChildrenMixin {
 
   /**
    * If you only need to search immediate children, it is much faster
-   * to call node.children.filter(callback)
+   * to call node.children.filter(callback) or node.findChildren(callback)
    */
   findAll(callback?: (node: SceneNode) => boolean): SceneNode[]
 
   /**
    * If you only need to search immediate children, it is much faster
-   * to call node.children.find(callback)
+   * to call node.children.find(callback) or node.findChild(callback)
    */
   findOne(callback: (node: SceneNode) => boolean): SceneNode | null
 }
@@ -552,10 +553,6 @@ interface ExportMixin {
   exportAsync(settings?: ExportSettings): Promise<Uint8Array> // Defaults to PNG format
 }
 
-interface RelaunchableMixin {
-  setRelaunchData(relaunchData: { [command: string]: /* description */ string }): void
-}
-
 interface ReactionMixin {
   readonly reactions: ReadonlyArray<Reaction>
 }
@@ -563,7 +560,7 @@ interface ReactionMixin {
 interface DefaultShapeMixin extends
   BaseNodeMixin, SceneNodeMixin, ReactionMixin,
   BlendMixin, GeometryMixin, LayoutMixin,
-  ExportMixin, RelaunchableMixin {
+  ExportMixin {
 }
 
 interface DefaultFrameMixin extends
@@ -571,7 +568,7 @@ interface DefaultFrameMixin extends
   ChildrenMixin, ContainerMixin,
   GeometryMixin, CornerMixin, RectangleCornerMixin,
   BlendMixin, ConstraintMixin, LayoutMixin,
-  ExportMixin, RelaunchableMixin {
+  ExportMixin {
 
   layoutMode: "NONE" | "HORIZONTAL" | "VERTICAL"
   counterAxisSizingMode: "FIXED" | "AUTO" // applicable only if layoutMode != "NONE"
@@ -607,18 +604,18 @@ interface DocumentNode extends BaseNodeMixin {
 
   /**
    * If you only need to search immediate children, it is much faster
-   * to call node.children.filter(callback)
+   * to call node.children.filter(callback) or node.findChildren(callback)
    */
   findAll(callback?: (node: PageNode | SceneNode) => boolean): Array<PageNode | SceneNode>
 
   /**
    * If you only need to search immediate children, it is much faster
-   * to call node.children.find(callback)
+   * to call node.children.find(callback) or node.findChild(callback)
    */
   findOne(callback: (node: PageNode | SceneNode) => boolean): PageNode | SceneNode | null
 }
 
-interface PageNode extends BaseNodeMixin, ChildrenMixin, ExportMixin, RelaunchableMixin {
+interface PageNode extends BaseNodeMixin, ChildrenMixin, ExportMixin {
 
   readonly type: "PAGE"
   clone(): PageNode
@@ -640,7 +637,7 @@ interface FrameNode extends DefaultFrameMixin {
 interface GroupNode extends
   BaseNodeMixin, SceneNodeMixin, ReactionMixin,
   ChildrenMixin, ContainerMixin, BlendMixin,
-  LayoutMixin, ExportMixin, RelaunchableMixin {
+  LayoutMixin, ExportMixin {
 
   readonly type: "GROUP"
   clone(): GroupNode
@@ -648,7 +645,7 @@ interface GroupNode extends
 
 interface SliceNode extends
   BaseNodeMixin, SceneNodeMixin, LayoutMixin,
-  ExportMixin, RelaunchableMixin {
+  ExportMixin {
 
   readonly type: "SLICE"
   clone(): SliceNode

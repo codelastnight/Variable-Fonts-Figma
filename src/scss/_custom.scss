@@ -1,0 +1,25 @@
+main {
+    display: grid;
+    grid-template-columns: [c1] 45% [c2] 55% [c3];
+    grid-template-rows: [r1] auto [r2] 40px [r3];
+
+    .font-loader {
+        grid-column: c1 / c2;
+        grid-row: r1 /r2;
+    }
+    
+    .font-editor {
+        grid-column: c2 / c3;
+        grid-row: r1 /r2;
+    }
+    
+    footer {
+        grid-column: c1 / c3;
+        grid-row: r2 /r3;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
