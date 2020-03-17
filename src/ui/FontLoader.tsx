@@ -10,7 +10,7 @@ interface FontLoaderProps {
 const FontLoader = (props: FontLoaderProps) => {
     const [search, setSearch] = useState("");
    
-    useEffect(() =>  console.log("bruh",props.FontList), [props.FontList])
+    //useEffect(() =>  console.log("bruh",props.FontList), [props.FontList])
 
 
     return (

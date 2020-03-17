@@ -1,0 +1,46 @@
+@use 'variables' as v;
+
+.font-editor {
+    //padding: v.$padding-lr;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: [c1]46%[c2]auto [c3];
+    grid-template-rows: [r1]60%[r2]auto[r3];
+    height: 100%;
+    width: 100%;
+
+    p {
+        @include font-ui-pos('small','normal');
+    }
+    
+    .info {
+        grid-row: r1 / r2;
+        grid-column: c1 / c2;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        header {
+            p {
+                @include font-ui-pos('small','bold');
+            }
+        }
+        
+    }
+    .edit-axis {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        grid-row: r1 / r2;
+        grid-column: c2 / c3;
+    }
+    .edit-text {
+        //overflow: scroll;
+        display: flex;
+        grid-row: r2 / r3;
+        grid-column: c1 / c3;
+        height: 100%;
+        width: 100%;
+        padding-bottom: 7px;
+        textarea {
+            height: 98%;
+        }
+    }
+}

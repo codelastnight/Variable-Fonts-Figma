@@ -61,7 +61,7 @@ interface PluginAPI {
   importComponentByKeyAsync(key: string): Promise<ComponentNode>
   importStyleByKeyAsync(key: string): Promise<BaseStyle>
 
-  listAvailableFontsAsync(): Promise<Font[]>
+  listAvailableFontsAsync(): Promise<FigmaFont[]>
   loadFontAsync(fontName: FontName): Promise<void>
   readonly hasMissingFont: boolean
 
@@ -375,7 +375,7 @@ type BlendMode =
   "COLOR" |
   "LUMINOSITY"
 
-interface Font {
+interface FigmaFont {
   fontName: FontName
 }
 

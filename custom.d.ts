@@ -1,10 +1,11 @@
+
 /**
  * object interface of each font data stored in app
  */
 interface FontSaveData {
     Id: string // unique id that the app can look for
     Name: string // name of string
-    FontBuffer: string | ArrayBuffer | File //font buffer data as a string
+    FontBuffer: string //font buffer data as a base64 encoded string
 
 }
 
@@ -24,6 +25,7 @@ interface pluginMessage {
     fontData?: FontSaveData
     fontListData?: VariableClientStorage
     removeID?: string
+    fontSetting?: FontSetting
 }
 
 /**
@@ -34,6 +36,29 @@ interface FontNodeData {
     settings: FontSetting
 }
 
+
 interface FontSetting {
-    
+    fontFamily: string
+    text: string
+    instance?: string
+    coordinates?: variationSetting[]
+}
+
+
+interface variationAxis {
+    name: string
+    min: number
+    max: number
+    default: number
+}
+
+interface variationAxes {
+    [name: string]: variationAxis
+}
+
+interface variationSetting {
+    [name: string]: number
+}
+interface namedVariations {
+    [name: string]: variationSetting 
 }

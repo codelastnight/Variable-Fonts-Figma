@@ -4,7 +4,7 @@
 
 main {
     display: grid;
-    grid-template-columns: [c1] 40% [c2] auto [c3];
+    grid-template-columns: [c1] 39% [c2] auto [c3];
     grid-template-rows: [r1] auto [r2] 30px [r3];
     height: 100%;
     width: 100%;
@@ -15,7 +15,7 @@ main {
     
     .font-editor {
         grid-column: c2 / c3;
-        grid-row: r1 /r3;
+        grid-row: r1 /r2;
     }
     
     footer {
@@ -27,11 +27,7 @@ main {
         align-items: center;
     }
 }
-body {
-    margin: 0;
-}
-
-p {
+body, p {
     margin: 0;
 }
 
@@ -54,7 +50,7 @@ p {
     background: rgba(#000, 0.3);
     border: 2px solid white;
     //margin: 2px;
-    border-radius: 50%;
+    border-radius: 4px;
     padding: 2px;
 
 }

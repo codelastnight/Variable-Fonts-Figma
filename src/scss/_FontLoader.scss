@@ -15,7 +15,7 @@
         //@include v.border($side: "-bottom");
 
         p {
-            @include font-ui-neg('small','bold');
+            @include font-ui-pos('small','bold');
         }
         .editbtn {
             display: flex;
@@ -61,7 +61,7 @@
         border-color: $figma-blue;
     }   
     &.active {
-        background: rgba($figma-blue, 0.5);
+        background: v.$selected;
     }
 
 }

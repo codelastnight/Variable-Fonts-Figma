@@ -1,7 +1,8 @@
-//var opentype = require('opentype.js');
-import * as opentype from 'opentype.js';
-import VariableFont from './variablefont';
+
+import fontkit from 'fontkit';
 import * as dataHelper from './dataHelper';
+import { isNullOrUndefined } from 'util';
+import { VariationFont } from '../../../variationFont';
 //const _VariableFont: any = VariableFont;
 
 const allowDrop = (event: DragEvent) => {
@@ -28,6 +29,21 @@ const ID =  () => {
 };
 
 /**
+ *  parse a base64 url into a font object
+ * @param dataUrl base64 string dataurl
+ */
+export const parseFont = (dataUrl:string): VariationFont => {
+    try {
+        const vf = fontkit.create(Buffer.from(dataHelper.convertDataURIToBinary(dataUrl))) as VariationFont
+        return vf
+    } catch (err) {
+        console.log(err)
+        return undefined
+    }
+}
+
+
+/**
  * save font into client storage if valid
  * @param files html5 files data
  */
@@ -42,11 +58,11 @@ export const loadSavefont = (files: FileList) => {
             try {
                 const fontBuffer = ev.target.result as string;
 
-                const vf: opentype.Font = new VariableFont(opentype.parse(dataHelper.convertDataURIToBinary(fontBuffer).buffer))
+                const vf= parseFont(fontBuffer)
                 //console.log(fontBuffer)
                 const savefont: FontSaveData = {
                     Id: ID(),
-                    Name: vf.names.fullName.en,    
+                    Name: vf.familyName,
                     FontBuffer: fontBuffer
                 }
                 //console.log(JSON.stringify(savefont))
