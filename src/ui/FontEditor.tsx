@@ -2,6 +2,8 @@ import * as React from 'react'
 import {useState, useEffect} from 'react'
 import * as fontHelper from './FontHelper/FontHelper'
 import { VariationFont } from '../../variationFont'
+import { isNullOrUndefined } from 'util'
+import FontSlider from './components/FontSlider'
 
 interface FontEditorProps {
     FontData: FontSaveData | undefined
@@ -28,10 +30,7 @@ const FontEditor = (props:  FontEditorProps) => {
     // get svg and render
     useEffect(() => {
         if (props.FontData != undefined) {
-            let options: opentype.RenderOptions = {
-                
-            }
-            //parent.postMessage({pluginMessage: { type: 'font-render', fontSetting ""} as pluginMessage}, '*')
+           parent.postMessage({pluginMessage: { type: 'font-render', fontSetting: props.FontGetSet.fontSetting} as pluginMessage}, '*')
         }
     }, [props.FontGetSet.fontSetting])
 
@@ -43,6 +42,15 @@ const FontEditor = (props:  FontEditorProps) => {
                 </header>
             </div>
             <div className="edit-axis">
+                {!isNullOrUndefined(fontObject?.variationAxes) ? 
+                    Object.keys(fontObject.variationAxes).map(axis => (
+                        <FontSlider key={axis} variation={fontObject.variationAxes[axis]} FontGetSet={props.FontGetSet} />
+                   
+                    )) : 
+                    (<div className="a" >
+                        <p>no variations found</p>
+                    </div>)
+                }
             </div>
             <div className="edit-text">
                 <textarea 

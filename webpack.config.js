@@ -30,17 +30,25 @@ module.exports = (env, argv) => ({
       }] },
       // Allows you to use "<%= require('./file.svg') %>" in your HTML code to get a data URI
       { test: /\.(png|jpg|gif|webp|svg)$/, loader: [{ loader: 'url-loader' }] },
+      
+      // fontkit browser hack, loads in required files without using fs in the browser
+      {enforce: 'post', test: /fontkit[\/\\]index.js$/, loader: "transform-loader?brfs"},
+	    {enforce: 'post', test: /unicode-properties[\/\\]index.js$/, loader: "transform-loader?brfs"},
+      {enforce: 'post', test: /linebreak[\/\\]src[\/\\]linebreaker.js/, loader: "transform-loader?brfs"}
     ],
   },
 
   // Webpack tries these extensions for you if you omit the extension like "import './file'"
   resolve: { extensions: ['.tsx', '.ts', '.jsx', '.js'] },
-
+ 
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'), // Compile into a folder called "dist"
   },
-
+  // tell node to ignore require(fs), hack for brotli, which has an unneeded fs
+  node: {
+    fs: 'empty',
+  },
   // Tells Webpack to generate "ui.html" and to inline "ui.ts" into it
   plugins: [
     new HtmlWebpackPlugin({

@@ -9,7 +9,10 @@ function App() {
     const [active, setActive] = useState("")
     // list of fonts in memory
     const [fontList, setFontList] = useState([] as FontSaveData[])
-    const [fontSetting, setFontSetting] = useState({fontFamily: "", text: ""} as FontSetting)  
+    const [fontSetting, setFontSetting] = useState({fontFamily: "", 
+                                                    text: "",
+                                                    variations: {}
+                                                    } as FontSetting)  
     // request font list on app load
     useEffect(() => parent.postMessage({pluginMessage: { type: 'app-init', data: ""} as pluginMessage}, '*'), [])
 
@@ -17,7 +20,7 @@ function App() {
     onmessage = (event) => {
         const msgData: pluginMessage = event.data.pluginMessage
         //console.log(msgData.fontListData.data)
-        switch (msgData.type) {
+        switch (msgData?.type) {
             case 'font-list': {
                 // rerender font list
                 setFontList(msgData.fontListData.data)

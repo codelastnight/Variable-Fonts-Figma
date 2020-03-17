@@ -41,7 +41,7 @@ interface FontSetting {
     fontFamily: string
     text: string
     instance?: string
-    coordinates?: variationSetting[]
+    variations: variationSetting
 }
 
 
@@ -53,12 +53,12 @@ interface variationAxis {
 }
 
 interface variationAxes {
-    [name: string]: variationAxis
-}
+    [key: string]: variationAxis
+} 
 
 interface variationSetting {
-    [name: string]: number
+    [axisname: string]: number
 }
 interface namedVariations {
-    [name: string]: variationSetting 
+    [variationname: string]: variationSetting 
 }
