@@ -2,7 +2,7 @@
 
 .font-loader {
     display: grid;
-    grid-template-rows: [r1] 42px [r2] auto[r3];
+    grid-template-rows: [r1] 40px [r2] auto[r3];
     @include v.border("-right");
     overflow: hidden;
 
@@ -20,9 +20,7 @@
         .editbtn {
             display: flex;
             position: relative;
-            &:hover {
-               // background: $figma-black-3;
-            }
+            
             input{
                 position: absolute;
                 margin: 0;
@@ -62,6 +60,8 @@
     }   
     &.active {
         background: v.$selected;
+        border-color: transparent;
+
     }
 
 }

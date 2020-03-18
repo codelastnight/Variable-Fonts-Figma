@@ -5,43 +5,64 @@
     box-sizing: border-box;
     display: grid;
     grid-template-columns: [c1]46%[c2]auto [c3];
-    grid-template-rows: [r1]60%[r2]auto[r3];
+    grid-template-rows: [r1]36px [r2]54%[r3]auto [r4];
     height: 100%;
     width: 100%;
     min-height: 0;
-
-    p {
+    label, p {
         @include font-ui-pos('small','normal');
     }
-    
-    .info {
+    header {
         grid-row: r1 / r2;
+        grid-column: c1 / c3;
+        overflow: hidden;
+        padding: 0 16px;
+        margin-top: 4px;
+        p {
+            margin: 8px 0;
+            @include font-ui-pos('small','bold');
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+    .info {
+        grid-row: r2 / r3;
         grid-column: c1 / c2;
         overflow-y: scroll;
         overflow-x: hidden;
-        header {
-            p {
-                @include font-ui-pos('small','bold');
-            }
-        }
+        padding: v.$padding-lr;
+        min-height: 0;
         
     }
     .edit-axis {
         overflow-y: scroll;
         overflow-x: hidden;
-        grid-row: r1 / r2;
+        grid-row: r2 / r3;
         grid-column: c2 / c3;
+        padding: v.$padding-lr;
+
+        .slider-top {
+            display: flex;
+            justify-content: space-between;
+            label {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                flex: 1;
+            }
+        }
     }
     .edit-text {
         //overflow: scroll;
         display: flex;
-        grid-row: r2 / r3;
+        grid-row: r3 / r4;
         grid-column: c1 / c3;
         height: 100%;
         width: 100%;
         padding-bottom: 7px;
+        min-height: 0;
         textarea {
             height: 98%;
+            min-height: 0;
         }
     }
 }

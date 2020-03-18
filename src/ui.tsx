@@ -11,7 +11,8 @@ function App() {
     const [fontList, setFontList] = useState([] as FontSaveData[])
     const [fontSetting, setFontSetting] = useState({fontFamily: "", 
                                                     text: "",
-                                                    variations: {}
+                                                    variations: {},
+                                                    instance: ""
                                                     } as FontSetting)  
     // request font list on app load
     useEffect(() => parent.postMessage({pluginMessage: { type: 'app-init', data: ""} as pluginMessage}, '*'), [])
@@ -41,7 +42,13 @@ function App() {
     return (
     <main>
         <FontLoader FontList={fontList} Active={active} SetActive={setActive}></FontLoader>
+        {active != "" ? (
         <FontEditor FontData={fontList.find(i=>i.Id == active)} Active={active} FontGetSet={{fontSetting,setFontSetting}} ></FontEditor>
+            ) : (
+               <div className="font-editor-null">
+                   
+               </div> 
+            ) }
         <footer>
         a
         </footer> 

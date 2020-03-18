@@ -36,7 +36,9 @@ interface FontNodeData {
     settings: FontSetting
 }
 
-
+/**
+ * font settings data
+ */
 interface FontSetting {
     fontFamily: string
     text: string
@@ -44,7 +46,9 @@ interface FontSetting {
     variations: variationSetting
 }
 
-
+/**
+ * font variation axis object
+ */
 interface variationAxis {
     name: string
     min: number
@@ -52,13 +56,23 @@ interface variationAxis {
     default: number
 }
 
+/**
+ * object containing all font variations axes in font file
+ */
 interface variationAxes {
     [key: string]: variationAxis
 } 
 
+/**
+ * the settings of variations
+ */
 interface variationSetting {
     [axisname: string]: number
 }
+
+/**
+ * all named variations in font file (also known as instances)
+ */
 interface namedVariations {
     [variationname: string]: variationSetting 
 }

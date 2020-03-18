@@ -4,8 +4,8 @@
 
 main {
     display: grid;
-    grid-template-columns: [c1] 39% [c2] auto [c3];
-    grid-template-rows: [r1] auto [r2] 30px [r3];
+    grid-template-columns: [c1] 38% [c2] auto [c3];
+    grid-template-rows: [r1] auto [r2] 32px [r3];
     height: 100%;
     width: 100%;
     .font-loader {

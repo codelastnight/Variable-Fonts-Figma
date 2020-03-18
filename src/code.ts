@@ -1,11 +1,14 @@
 // This plugin will open a modal to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
 
+import { isNullOrUndefined } from "util";
+
 // This file holds the main code for the plugins. It has access to the *document*.
 // You can access browser APIs in the <script> tag inside "ui.html" which has a
 // full browser enviroment (see documentation).
 
 // the key used in storing data in clientstorage
+
 const clientId = "Variable-Fonts-Figma"
 
 
@@ -69,13 +72,19 @@ figma.ui.on("message",async (msg: pluginMessage) => {
 });
 
 // do shit on selection change
-figma.on("selectionchange", () => {
+figma.on("selectionchange", async () => {
 
   const selection = figma.currentPage.selection
 
   switch(selection.length) {
     // one thing selected
     case 1: {
+      const saveDataBuffer: string = await selection[0].getPluginData(clientId)
+      if (saveDataBuffer != "" && !isNullOrUndefined(saveDataBuffer) ) {
+        const saveData: FontNodeData = JSON.parse(saveDataBuffer)
+        figma.ui.postMessage({type: "from-selection", fontSetting: saveData.settings} as pluginMessage)
+
+      }
       break;
     }
 

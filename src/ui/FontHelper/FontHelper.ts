@@ -1,3 +1,8 @@
+/**
+ * functions related to font modification etc
+ * 
+ * 
+ */
 
 import fontkit from 'fontkit';
 import * as dataHelper from './dataHelper';
@@ -13,8 +18,6 @@ const drag = (event: DragEvent) => {
     //event.dataTransfer.setData("text", event.target.id);
     event.dataTransfer.dropEffect = 'copy';
 }
-
-
 
 
 /** 
@@ -59,13 +62,11 @@ export const loadSavefont = (files: FileList) => {
                 const fontBuffer = ev.target.result as string;
 
                 const vf= parseFont(fontBuffer)
-                //console.log(fontBuffer)
                 const savefont: FontSaveData = {
                     Id: ID(),
                     Name: vf.familyName,
                     FontBuffer: fontBuffer
                 }
-                //console.log(JSON.stringify(savefont))
                 parent.postMessage( {pluginMessage:{ type: 'font-loaded', fontData: savefont} as pluginMessage}, '*')
 
             } catch (err) {
@@ -88,8 +89,12 @@ const drop = (event: DragEvent)=> {
 }
 
 /**
- * 
+ * upload file 
  */
 export const fileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     loadSavefont(event.currentTarget.files)
+}
+
+export const renderSVG = (font: VariationFont, fontSettings: FontSetting) => {
+
 }
